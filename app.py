@@ -37,7 +37,7 @@ def get_prediction(image, model):
 	return y_hat
 
 #
-model = models.resnet18(weights = True)
+model = models.resnet18()
 num_ftrs = model.fc.in_features
 model.fc = nn.Linear(num_ftrs, len(classes))
 model.load_state_dict(torch.load(MODEL_PATH, map_location='cpu'))
