@@ -36,6 +36,12 @@ flask run
 
 3. Выберите файл формата ...
 
+### Создание образа (docker image):  
+```
+docker build -t your_dockerhub_id/sharifullina_sbeer_test .
+docker run -p 8888:5000 your_dockerhub_id/sharifullina_sbeer_test
+```  
+
 
 ### Описание репозитория  
 1. ```app.py```, папки ```templates``` и ```static``` содержат файлы, необходимые для запуска веб клиента.  
