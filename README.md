@@ -16,7 +16,8 @@ source sharifullina_env/bin/activate
 ```
 pip install -r requirements.txt
 ```
-## 2. Веб приложение. Для того, чтобы протестить модель на веб странице выполните  
+## 2. Веб приложение.  
+Для того, чтобы протестить модель на веб странице выполните  
 ```
 export FLASK_APP=app
 export FLASK_ENV=development
@@ -25,7 +26,8 @@ flask run
 После запуска приложения, скопируйте URL ```http://127.0.0.1:5000/``` и откройте его в браузере.   
 
 
-## 3. Выполните код ниже, чтобы создать образ (docker image) при помощи ```Dockerfile```:  
+## 3. ```Dockerfile```
+Выполните код ниже, чтобы создать образ (docker image)   
 ```
 docker build -t your_dockerhub_id/sharifullina_sbeer_test .
 docker run -p 8888:5000 your_dockerhub_id/sharifullina_sbeer_test
