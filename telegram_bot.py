@@ -10,7 +10,7 @@ import io
 import numpy as np
 
 classes = ['Australian terrier', 'Border terrier', 'Samoyed', 'Beagle', 'Shih-Tzu', 'English foxhound', 'Rhodesian ridgeback', 'Dingo', 'Golden retriever', 'Old English sheepdog']
-model = models.resnet18(weights = True)
+model = models.resnet18()
 num_ftrs = model.fc.in_features
 model.fc = nn.Linear(num_ftrs, len(classes))
 model.load_state_dict(torch.load('resnet_20_epochs.pt', map_location='cpu'))
