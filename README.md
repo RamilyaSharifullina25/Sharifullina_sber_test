@@ -41,5 +41,7 @@ docker run -p 8888:5000 your_dockerhub_id/sharifullina_sbeer_test
 1. ```app.py```, папки ```templates``` и ```static``` содержат файлы, необходимые для запуска веб сайта.  
 2. ```dogs_classification.ipynb``` содержит пайплайн CV модели.
 3. ```telegram_bot.py``` необходим для запуска и работы телеграм бота.  
-4.  ```requirements.txt``` содержит модули, необходимые для запуска модели и веб клиента.  
-5.  ```Dockerfile``` для создания ```docker image``` (образа).
+4. ```requirements.txt``` и ```requirements_telegram_bot.txt```  содержат модули, необходимые для запуска модели, веб клиента и телеграм бота.  
+5. ```Dockerfile``` для создания ```docker image``` (образа).  
+6. ```resnet_pretrained.pt``` сохраненная модель.  
+7. ```examples``` содержит картинки для примера датастеа.  
