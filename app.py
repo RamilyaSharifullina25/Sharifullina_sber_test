@@ -10,6 +10,10 @@ from werkzeug.utils import secure_filename
 UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'static/uploads/')
 ALLOWED_EXTENTIONS = {'png', 'jpg', 'jpeg'} 
 MODEL_PATH = 'resnet_pretrained.pt'
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
+classes = ['Australian terrier', 'Border terrier', 'Samoyed', 'Beagle', 'Shih-Tzu', 'English foxhound', 'Rhodesian ridgeback', 'Dingo', 'Golden retriever', 'Old English sheepdog']
+classes_dict = dict(zip(list(range(0,10)), classes))
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -32,8 +36,12 @@ def get_prediction(image, model):
 	_, y_hat = outputs.max(1)
 	return y_hat
 
-resnet = models.resnet18(weights = True)
-resnet.eval()
+#
+model = models.resnet18(weights = True)
+num_ftrs = model.fc.in_features
+model.fc = nn.Linear(num_ftrs, len(classes))
+model.load_state_dict(torch.load(MODEL_PATH, map_location='cpu'))
+model.eval()
 
 @app.route('/predict', methods=['GET', 'POST'])
 def upload():
@@ -41,8 +49,9 @@ def upload():
 		f = request.files['file']
 		file_path = os.path.join(app.config['UPLOAD_FOLDER'],  secure_filename(f.filename))
 		f.save(file_path)
-		result = get_prediction(file_path, model = resnet)
-		return str(result)
+		output = get_prediction(file_path, model = model)
+		result = classes_dict[output.item()]
+		return result
 	return None
 
 if __name__ == '__main__':
