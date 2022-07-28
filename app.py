@@ -9,7 +9,7 @@ from werkzeug.utils import secure_filename
 
 UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'static/uploads/')
 ALLOWED_EXTENTIONS = {'png', 'jpg', 'jpeg'} 
-MODEL_PATH = 'resnet_pretrained.pt'
+MODEL_PATH = 'resnet_20_epochs.pt'
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 classes = ['Australian terrier', 'Border terrier', 'Samoyed', 'Beagle', 'Shih-Tzu', 'English foxhound', 'Rhodesian ridgeback', 'Dingo', 'Golden retriever', 'Old English sheepdog']
