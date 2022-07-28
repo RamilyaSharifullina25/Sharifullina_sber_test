@@ -1,40 +1,51 @@
-import telebot
-from telebot import types
 
-bot = telebot.TeleBot('5587461965:AAEbygZIyquIamS4q8Z7OK5sqyBgLsEiZSs')
+from telegram.ext import Updater, Filters, CommandHandler, MessageHandler
+import cv2
+from tensorflow.keras.applications.resnet50 import ResNet50
+import numpy as np
+from labels import lbl
 
-@bot.message_handler(commands=['start'])
-def start(message):
-    mess = f'Привет, <b>{message.from_user.first_name} <u>{message.from_user.last_name}</u></b>'
-    bot.send_message(message.chat.id, mess, parse_mode='html')
+model = ResNet50()
 
-# @bot.message_handler(content_types=['text'])
-# def get_user_text(message):
-#     if message.text == "Hello":
-#         bot.send_message(message.chat.id, "и тебе привет!", parse_mode='html')
-#     elif message.text == "photo":
-#         photo = open('smth.png', 'rb')
-#         bot.send_photo(message.chat.id, photo)
-#     else:
-#         bot.send_message(message.chat.id, "я тебя не понимаю", parse_mode='html')
+def start(updater, context):
+	updater.message.reply_text("Welcome to the classification bot!")
 
-@bot.message_handler(content_types=['photo'])
-def get_user_photo(message):
-    bot.send_message(message.chat.id, 'Вау, какое крутое фото!')
+def help_(updater, context):
+	updater.message.reply_text("Just send the image you want to classify.")
 
-@bot.message_handler(command=['website'])
-def website(message):
-    markup = types.InlineKeyboardMarkup()
-    markup.add(types.InlineKeyboardMarkup("Посетить веб сайт", url = "https://www.youtube.com/watch?v=Omy0dszV_BA&t=2626s&ab_channel=Aleron%D0%9C%D0%B8%D0%BB%D0%B5%D0%BD%D1%8C%D0%BA%D0%B8%D0%BD"))
-    bot.send_message(message.chat.id, "Перейдите на сайт", reply_markup=markup)
+def message(updater, context):
+	msg = updater.message.text
+	print(msg)
+	updater.message.reply_text(msg)
 
-@bot.message_handler(command=['help'])
-def website(message):
-    markup = types.ReplyKeyboardMarkup()
-    website = types.KeyboardButton('Веб сайт')
-    start = types.KeyboardButton('Start')
-    markup.add(website, start)
-    bot.send_message(message.chat.id, "Перейдите на сайт", reply_markup=markup)
+def image(updater, context):
+	photo = updater.message.photo[-1].get_file()
+	photo.download("img.jpg")
 
-bot.polling(none_stop=True)
+	img = cv2.imread("img.jpg")
 
+	img = cv2.resize(img, (224,224))
+	img = np.reshape(img, (1,224,224,3))
+
+	pred = np.argmax(model.predict(img))
+
+	pred = lbl[pred]
+
+	print(pred)
+
+	updater.message.reply_text(pred)
+
+
+updater = Updater('5587461965:AAEbygZIyquIamS4q8Z7OK5sqyBgLsEiZSs')
+dispatcher = updater.dispatcher
+
+dispatcher.add_handler(CommandHandler("start", start))
+dispatcher.add_handler(CommandHandler("help", help_))
+
+dispatcher.add_handler(MessageHandler(Filters.text, message))
+
+dispatcher.add_handler(MessageHandler(Filters.photo, image))
+
+
+updater.start_polling()
+updater.idle()
