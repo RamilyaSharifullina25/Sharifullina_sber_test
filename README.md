@@ -1,6 +1,6 @@
 # Sharifullina_sber_test
 
-### 1. Скачивание и установка необходимых пакетов  
+## 1. Скачивание и установка необходимых пакетов  
 
 1.1 Выполните код ниже, чтобы скачать репозиторий на локальный компьютер и перейти в эту папку.
 ```
@@ -16,7 +16,6 @@ source sharifullina_env/bin/activate
 ```
 pip install -r requirements.txt
 ```
-
 2. Для того, чтобы протестить модель на веб странице выполните  
 ```
 export FLASK_APP=app
@@ -26,14 +25,15 @@ flask run
 После запуска приложения, скопируйте URL ```http://127.0.0.1:5000/``` и откройте его в браузере.   
 
 3. Выберите файл формата ...
+--- 
 
-### Выполните код ниже, чтобы создать образ (docker image) при помощи ```Dockerfile```:  
+## Выполните код ниже, чтобы создать образ (docker image) при помощи ```Dockerfile```:  
 ```
 docker build -t your_dockerhub_id/sharifullina_sbeer_test .
 docker run -p 8888:5000 your_dockerhub_id/sharifullina_sbeer_test
 ```  
 
-### Телеграм бот https://t.me/SberSharifullinaBot
+## Телеграм бот https://t.me/SberSharifullinaBot
 
 1. Для того, чтобы установить нужные библиотеки из ```requirements2.txt``` выполните те же действия, описанные выше, для скачивания и установки необходимых пакетов.  
 
