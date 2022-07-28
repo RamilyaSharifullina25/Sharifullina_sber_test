@@ -43,5 +43,5 @@ docker run -p 8888:5000 your_dockerhub_id/sharifullina_sbeer_test
 3. ```telegram_bot.py``` необходим для запуска и работы телеграм бота.  
 4. ```requirements.txt``` и ```requirements_telegram_bot.txt```  содержат модули, необходимые для запуска модели, веб клиента и телеграм бота.  
 5. ```Dockerfile``` для создания ```docker image``` (образа).  
-6. ```resnet_pretrained.pt``` сохраненная модель.  
+6. ```resnet_20_epochs.pt``` сохраненная модель.  
 7. ```examples``` содержит картинки для примера датастеа.  
