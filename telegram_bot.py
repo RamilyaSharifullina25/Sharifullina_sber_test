@@ -13,7 +13,7 @@ classes = ['Australian terrier', 'Border terrier', 'Samoyed', 'Beagle', 'Shih-Tz
 model = models.resnet18(weights = True)
 num_ftrs = model.fc.in_features
 model.fc = nn.Linear(num_ftrs, len(classes))
-model.load_state_dict(torch.load('resnet_pretrained.pt', map_location='cpu'))
+model.load_state_dict(torch.load('resnet_20_epochs.pt', map_location='cpu'))
 model.eval()
 
 classes_dict = dict(zip(list(range(0,10)), classes))
