@@ -8,7 +8,6 @@ from torchvision import transforms, models
 from PIL import Image
 import io
 import numpy as np
-from labels import lbl
 
 classes = ['Australian terrier', 'Border terrier', 'Samoyed', 'Beagle', 'Shih-Tzu', 'English foxhound', 'Rhodesian ridgeback', 'Dingo', 'Golden retriever', 'Old English sheepdog']
 model = models.resnet18(weights = True)
